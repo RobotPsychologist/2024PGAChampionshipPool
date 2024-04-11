@@ -1,0 +1,53 @@
+@st.cache_resource()
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def set_png_as_page_bg(png_file):
+    bin_str = get_base64_of_bin_file(png_file)
+    page_bg_img = '''
+    <style>
+    body {
+    background-image: url("data:images/png;base64,%s");
+    background-size: cover;
+    }
+    </style>
+    ''' % bin_str
+    
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+    return
+set_png_as_page_bg('images/clubhouse_14.jpg')
+
+
+# SCORE CARD SCRATCH
+
+,
+                        "R1": st.column_config.NumberColumn(
+                            "R1",
+                            width="small",
+                            min_value=-100,
+                            max_value=1500,
+                            step=1,
+                        ),
+                        "R2": st.column_config.NumberColumn(
+                            "R2",
+                            width="small",
+                            min_value=-100,
+                            max_value=1500,
+                            step=1,
+                        ),
+                        "R3": st.column_config.NumberColumn(
+                            "R3",
+                            width="small",
+                            min_value=-100,
+                            max_value=1500,
+                            step=1,
+                        ),
+                        "R4": st.column_config.NumberColumn(
+                            "R4",
+                            width="small",
+                            min_value=-100,
+                            max_value=1500,
+                            step=1,
+                        )
