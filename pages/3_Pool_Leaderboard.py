@@ -27,7 +27,7 @@ def pull_scores(url='https://www.espn.com/golf/leaderboard'):
     return dfs[0]
 
 def keep_top_5_scores(df):
-    '''Returns the top 5 scores for each group.'''
+    '''Returns the lowest 5 scores for each group.'''
     return df.nsmallest(5, 'SCORE')
 
 def convert_golf_scores(df):
