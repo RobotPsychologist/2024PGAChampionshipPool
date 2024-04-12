@@ -34,7 +34,7 @@ grp2Table = pd.DataFrame({
 
 grp3Table = pd.DataFrame({
                     'Player': ['Justin Thomas', 'Tommy Fleetwood', 'Max Homa', 'Cameron Young', 'Shane Lowry', 'Jason Day', 'Patrick Reed', 'Sahith Theegala', 'Sam Burns', 'Min Woo Lee', 'Sung-Jae Im', 'Tom Kim', 'Tyrrell Hatton', 'Rickie Fowler', 'Justin Rose', 'Phil Mickelson', 'Tiger Woods', 'Sergio Garcia', 'Adam Scott', 'Corey Conners'],
-                    'Masters': ['','','','','','','🟩','','','','','','','','','🟩🟩🟩','🟩🟩🟩🟩','🟩','🟩',''],
+                    'Masters': ['','','','','','','🟩','','','','','','','','','🟩🟩🟩','🟩🟩🟩🟩🟩','🟩','🟩',''],
                     'Country': ['🇺🇸','🏴󠁧󠁢󠁥󠁮󠁧󠁿','🇺🇸','🇺🇸','🇮🇪','🇦🇺','🇺🇸','🇺🇸','🇺🇸','🇦🇺','🇰🇷','🇰🇷','🏴󠁧󠁢󠁥󠁮󠁧󠁿','🇺🇸','🏴󠁧󠁢󠁥󠁮󠁧󠁿','🇺🇸','🇺🇸','🇪🇸','🇦🇺','🇨🇦'],
                     'Picked': [6,5,6,5,9,1,0,4,1,1,1,1,0,3,1,2,1,0,0,5]
                     })
