@@ -37,12 +37,14 @@ def team_selection_table(team, pool_team_selections_df, pool_player_names_df=PLA
     '''Displays the team selection table with populated scores for a given team'''
     pool_player_name = pool_player_names_df[team]
     st.write(f"### {pool_player_name}")
-    st.dataframe(pool_team_selections_df.loc[pool_team_selections_df['pool_player_name'] == pool_player_name, ['group_number','POS', 'mst_player','SCORE','TODAY','THRU','TOT']],
+    col_select = ['group_number','POS', 'mst_player','SCORE','TODAY','THRU','TOT']
+    st.dataframe(pool_team_selections_df.loc[pool_team_selections_df['pool_player_name'] == pool_player_name,
+                                             col_select],
                  hide_index=True,
                  use_container_width=True,
                  column_config={
-                        "group_number": st.column_config.NumberColumn("G#", width="small"),
-                        "mst_player": st.column_config.TextColumn("Golfer", width="small"),
+                        "group_number": st.column_config.NumberColumn("G#"),
+                        "mst_player": st.column_config.TextColumn("GOLFER", width="medium"),
                         "TOT": st.column_config.NumberColumn(
                             "Total",
                             width="small",
