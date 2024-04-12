@@ -24,7 +24,9 @@ TEAM_SELECTIONS_PATH = 'tables/pool_team_selections.csv'
 def pull_scores(url='https://www.espn.com/golf/leaderboard'):
     '''Pulls the current scores from the ESPN leaderboard and returns a dataframe with the scores'''
     dfs = pd.read_html(url)
-    return dfs[0]
+    ldbrd_df = dfs[0]
+    ldbrd_df = ldbrd_df.loc[~ldbrd_df.applymap(lambda x: 'Projected' in str(x)).any(axis=1)]
+    return ldbrd_df
 
 def keep_top_5_scores(df):
     '''Returns the lowest 5 scores for each group.'''
