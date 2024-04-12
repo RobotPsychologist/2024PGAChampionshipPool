@@ -72,3 +72,42 @@ st.dataframe(result_df,
              height=900,use_container_width=True, hide_index=True)
 # Display the DataFrame
 #st.table(df.groupby('pool_player_name')['total'].nsmallest(5))
+
+st.write("## Compare Players :scales:")
+compare1, compare2 = st.columns(2)
+players = score_cards['pool_player_name'].unique()
+column_configs = {"TOT": st.column_config.NumberColumn("TOTAL"),
+                  "group_number": st.column_config.NumberColumn("G#"),
+                  "mst_player": st.column_config.TextColumn("GOLFER", width="medium"),
+                  "SCORE": st.column_config.NumberColumn("SCORE"),
+                  "TODAY": st.column_config.NumberColumn("TODAY"),
+                  "THRU": st.column_config.TextColumn("THRU")
+                  }
+
+with compare1:
+    selected_score1 = st.selectbox(
+        'Select player:',
+        result_df['pool_player_name'].unique(),
+        key='score1'   
+    )
+    # Filter the DataFrame based on the selected score
+    filtered_df1 = score_cards[(score_cards['pool_player_name'] == selected_score1)]
+    # Display the filtered DataFrame
+    st.dataframe(filtered_df1[['group_number','POS','mst_player','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
+                 use_container_width=True, 
+                 hide_index=True,
+                 column_config=column_configs)
+    
+with compare2:
+    selected_score2 = st.selectbox(
+        'Select player:',
+        result_df['pool_player_name'].unique(),
+        key='score2'   
+    )
+    # Filter the DataFrame based on the selected score
+    filtered_df2 = score_cards[(score_cards['pool_player_name'] == selected_score2)]
+    # Display the filtered DataFrame
+    st.dataframe(filtered_df2[['group_number','POS','mst_player','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
+                 use_container_width=True, 
+                 hide_index=True,
+                 column_config=column_configs)
