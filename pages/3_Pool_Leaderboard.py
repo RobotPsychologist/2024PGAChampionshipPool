@@ -25,6 +25,7 @@ def pull_scores(url='https://www.espn.com/golf/leaderboard'):
     '''Pulls the current scores from the ESPN leaderboard and returns a dataframe with the scores'''
     dfs = pd.read_html(url)
     ldbrd_df = dfs[0]
+    ldbrd_df = ldbrd_df.loc[~ldbrd_df.applymap(lambda x: ('cut' in str(x)) or ('CUT' in str(x))).any(axis=1)]
     ldbrd_df = ldbrd_df.loc[~ldbrd_df.applymap(lambda x: 'Projected' in str(x)).any(axis=1)]
     return ldbrd_df
 
@@ -40,7 +41,10 @@ def convert_golf_scores(df):
     return df
 
 # LOAD DATA TABLES
-df_masters = convert_golf_scores(df=pull_scores())
+pulled_scores = pull_scores()
+#st.dataframe(pulled_scores)
+df_masters = convert_golf_scores(df=pulled_scores)
+#st.dataframe(df_masters)
 team_selections_df = pd.read_csv(TEAM_SELECTIONS_PATH)   
 score_cards = pd.merge(team_selections_df, 
                        df_masters, 
