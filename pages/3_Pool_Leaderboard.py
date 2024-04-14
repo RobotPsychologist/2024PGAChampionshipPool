@@ -25,8 +25,8 @@ def pull_scores(url='https://www.espn.com/golf/leaderboard'):
     '''Pulls the current scores from the ESPN leaderboard and returns a dataframe with the scores'''
     dfs = pd.read_html(url)
     ldbrd_df = dfs[0]
-    ldbrd_df = ldbrd_df.loc[~ldbrd_df.applymap(lambda x: ('cut' in str(x)) or ('CUT' in str(x))).any(axis=1)]
-    ldbrd_df = ldbrd_df.loc[~ldbrd_df.applymap(lambda x: 'Projected' in str(x)).any(axis=1)]
+    ldbrd_df = ldbrd_df.loc[~ldbrd_df.map(lambda x: ('cut' in str(x)) or ('CUT' in str(x))).any(axis=1)]
+    ldbrd_df = ldbrd_df.loc[~ldbrd_df.map(lambda x: 'Projected' in str(x)).any(axis=1)]
     return ldbrd_df
 
 def keep_top_5_scores(df):
@@ -38,6 +38,9 @@ def convert_golf_scores(df):
     df['SCORE'] = df['SCORE'].apply(lambda x: int(x) if x != 'E' else 0)
     df['TODAY'] = df['TODAY'].apply(lambda x: int(x) if x != 'E' and x != '-' else 0)
     df['TOT'] = df['TOT'].apply(lambda x: int(x) if x != 'E' and x != '--'else 0) 
+    
+    # Subtract 3 from the score of the top player
+    df.loc[df['POS'] == '1', 'SCORE'] = df.loc[df['POS'] == '1', 'SCORE'] - 3
     return df
 
 # LOAD DATA TABLES
@@ -45,14 +48,18 @@ pulled_scores = pull_scores()
 #st.dataframe(pulled_scores)
 df_masters = convert_golf_scores(df=pulled_scores)
 #st.dataframe(df_masters)
-team_selections_df = pd.read_csv(TEAM_SELECTIONS_PATH)   
-score_cards = pd.merge(team_selections_df, 
-                       df_masters, 
-                       how='left', 
-                       left_on='mst_player', 
-                       right_on='PLAYER') 
-top_5_df = score_cards.groupby('pool_player_name').apply(keep_top_5_scores).reset_index(drop=True)
-
+team_selections_df = pd.read_csv(TEAM_SELECTIONS_PATH)
+score_cards = pd.merge(team_selections_df,
+                       df_masters,
+                       how='left',
+                       left_on='mst_player',
+                       right_on='PLAYER')
+top_5_df = score_cards.groupby('pool_player_name').apply(keep_top_5_scores, include_groups = False)
+#.reset_index(drop=True)
+#top_5_df = score_cards.groupby('pool_player_name')['SCORE'].nsmallest(5)
+#top_5_df = score_cards.groupby('pool_player_name', group_keys=False).apply(keep_top_5_scores)
+#top_5_df=score_cards.groupby('pool_player_name',group_keys=False).apply(lambda grp:grp.nsmallest(n=5,columns='SCORE').sort_index())
+#st.dataframe(top_5_df)
 #st.table(top_5_df)
 # Group by 'pool_player_name' again and sum the 'total'
 result = top_5_df.groupby('pool_player_name')[['SCORE', 'TODAY','TOT']].sum()
