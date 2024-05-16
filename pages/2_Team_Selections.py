@@ -28,14 +28,21 @@ df.drop(columns=['espn_check'], inplace=True)
 total_groups = df['group_number'].nunique()
 split_num = total_groups // 2
 
+COLUMN_CONFIG={"golfer": st.column_config.TextColumn("Golfer", width="medium"),      
+               "pick_count": st.column_config.TextColumn("Pick Count", width="medium")
+                },
+
 with group1:
     for i in range(0, total_groups+1):
         st.write(f"### Group {i}")
-        st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True)
+        st.dataframe(df[df['group_number'] == i], column_config=COLUMN_CONFIG, hide_index=True, use_container_width=True)
         if split_num == i:
             break
 
 with group2:
     for i in range(split_num+1, total_groups):
         st.write(f"### Group {i}")
-        st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True)
+        st.dataframe(df[df['group_number'] == i], column_config=COLUMN_CONFIG, hide_index=True, use_container_width=True)
+
+
+
