@@ -15,7 +15,7 @@ TOURNAMENT_NAME_LOOKUP = 'pga_championship'
 TOURNAMENT_NAME_LABEL = 'PGA Championship'
 YEAR_LABEL = '2024'
 
-st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Live Results :man-golfing:")
+st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LOOKUP} Pool Live Results :man-golfing:")
 
 LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LABEL}/TournamentLogo.png'
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
