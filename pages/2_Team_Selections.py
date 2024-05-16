@@ -45,7 +45,7 @@ total_groups = df['group_number'].nunique()
 split_num = total_groups // 2
 
 COLUMN_CONFIG={"golfer": st.column_config.TextColumn("Golfer", width="medium"),      
-               "pick_count": st.column_config.NumberColumn("Pick Count", width="medium")
+               "pick_count": st.column_config.NumberColumn("Pick Count", width="small")
                 }
 
 with group1:
