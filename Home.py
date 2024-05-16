@@ -56,6 +56,7 @@ st.markdown('''
 
 
 
+st.markdown('''## Course Layout''')
 course_table = {
     "Hole": [1, 2, 3, 4, 5, 6, 7, 8, 9, "Out", 10, 11, 12, 13, 14, 15, 16, 17, 18, "In", "Total"],
     "Name": ["Cut the Corner", "The Ridge", "Floyds Fork", "Short 'n Sweet", "Fade Away", "The Bear", "Players Pick", "Thor's Hammer", "The Rise", "", "Turns", "On the Edge", "Odin's Revenge", "The Island", "Two Tears", "On the Rocks", "Down the Stretch", "No Mercy", "Gahm Over", "", ""],
