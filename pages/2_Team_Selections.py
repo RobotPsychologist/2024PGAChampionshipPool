@@ -15,6 +15,16 @@ st.set_page_config(
     layout='wide',
 )
 
+# ESPN DATA LOAD FOR GROUP DISPLAY
+## Load the data from ESPN
+url = 'https://www.espn.com/golf/leaderboard'
+
+## Read the HTML tables into a list of DataFrame objects
+web_leaderboard_dfs = pd.read_html(url)
+
+## The first table
+web_leaderboard_df = web_leaderboard_dfs[0]
+
 st.write("# Team Selections :abacus:")
 #set_bg_hack("images/clubhouse.png")
 LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
@@ -24,6 +34,12 @@ group1, group2 = st.columns([0.5 , 0.5]) #group2 [0.2 , 0.2, 0.2, 0.2, 0.2]
 
 df = pd.read_csv(f'tables/{TOURNAMENT_NAME_LOOKUP}/group_counts.csv')
 df.drop(columns=['espn_check'], inplace=True)
+
+df = pd.merge(df,
+            web_leaderboard_df,
+            how='left',
+            left_on='golfer',
+            right_on='PLAYER')
 
 total_groups = df['group_number'].nunique()
 split_num = total_groups // 2
