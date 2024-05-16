@@ -49,16 +49,16 @@ st.markdown('''
 
             With our field now set, we’ll payout the winnings as follows:
 
-            First Place     $300
-            Second Place    $150
-            Third Place     $125
+            First Place     \$300
+            Second Place    \$150
+            Third Place     \$125
             ''')
 
 
 
 course_table = {
     "Hole": [1, 2, 3, 4, 5, 6, 7, 8, 9, "Out", 10, 11, 12, 13, 14, 15, 16, 17, 18, "In", "Total"],
-    "Name": ["Cut the Corner", "The Ridge", "Floyds Fork", "Short 'n Sweet", "Fade Away", "The Bear", "Players Pick", "Thor's Hammer", "The Rise", "", "Turns", "On the Edge", "Odin's Revenge", "The Island", "Two Tears", "On the Rocks", "Down the Stretch", "No Mercy", "Gahm Over", "", "Source:[2]"],
+    "Name": ["Cut the Corner", "The Ridge", "Floyds Fork", "Short 'n Sweet", "Fade Away", "The Bear", "Players Pick", "Thor's Hammer", "The Rise", "", "Turns", "On the Edge", "Odin's Revenge", "The Island", "Two Tears", "On the Rocks", "Down the Stretch", "No Mercy", "Gahm Over", "", ""],
     "Yards": [484, 500, 208, 372, 463, 495, 597, 190, 415, 3724, 590, 211, 494, 351, 254, 435, 508, 472, 570, 3885, 7609],
     "Par": [4, 4, 3, 4, 4, 4, 5, 3, 4, 35, 5, 3, 4, 4, 3, 4, 4, 4, 5, 36, 71]
 }
