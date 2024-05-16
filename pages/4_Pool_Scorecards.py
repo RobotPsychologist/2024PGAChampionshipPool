@@ -19,7 +19,7 @@ LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
 
 
-st.write("# Pool Scorecards :1234:")
+st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Scorecards :1234:")
 #set_bg_hack('images/augusta_6th_hole.png')
 
 # DATA PREPARATION
@@ -41,7 +41,7 @@ def team_selection_table(team, pool_team_selections_df, pool_player_names_df=pla
     pool_player_name = pool_player_names_df[team]
     st.write(f"### {pool_player_name}")
     col_select = ['group_number','POS', 'golfer','SCORE','TODAY','THRU','TOT']
-    st.dataframe(pool_team_selections_df.loc[pool_team_selections_df['pool_player_name'] == pool_player_name,
+    st.dataframe(pool_team_selections_df.loc[pool_team_selections_df['player'] == pool_player_name,
                                              col_select],
                  hide_index=True,
                  use_container_width=True,
