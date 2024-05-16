@@ -1,7 +1,7 @@
 import streamlit as st
 import base64
 
-def set_bg_hack(main_bg):
+def set_bg_hack(main_bg, tournament):
     '''
     A function to unpack an image from root folder and set as bg.
  
@@ -16,7 +16,7 @@ def set_bg_hack(main_bg):
          f"""
          <style>
          .stApp {{
-             background: url(data:images/{main_bg_ext};base64,{base64.b64encode(open(main_bg, "rb").read()).decode()});
+             background: url(data:images/{tournament}/{main_bg_ext};base64,{base64.b64encode(open(main_bg, "rb").read()).decode()});
              background-size: cover
          }}
          </style>

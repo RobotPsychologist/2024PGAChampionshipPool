@@ -1,7 +1,8 @@
-'''This is the entrypoint file for the 2024 Masters Pool dashboard. 
+'''This is the entrypoint file for the pool dashboard. 
 '''
 
 import streamlit as st
+import pandas as pd
 
 st.set_page_config(
     page_title="Home",
@@ -9,23 +10,31 @@ st.set_page_config(
     layout='wide',
 )
 
-st.write("# 2024 Masters Pool :man-golfing:")
+TOURNAMENT_NAME_LOOKUP = 'pga_championship'
+TOURNAMENT_NAME_LABEL = 'PGA Championship'
+YEAR_LABEL = '2024'
+LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
 
-LOGO_IMAGE_PATH = 'images/MastersTournamentLogo.png'
+st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool :man-golfing:")
+
+
+
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
 
 st.markdown('''
             ## Details & Rules
-            Welcome to the 2024 Masters Pool!
-            This year's pool will be just as easy as years past, but with a new choose-your-own-adventure team selection process.
-            
-            ### New Selection Format: Favourites or Field
-            This year, you will have the option to play build a team of 10 or 11, depending on how your want to hedge your bets!
-            
-            | Bet the Favourites      | Bet the Field |
-            | ----------- | ----------- |
-            | Select 2 players from each group for a total of 10 players (the regular selection process)      | Select only 1 player from Group 1 but then select a third player twice in any remaining group (total of 11 players)      |.
+            We’re once again offering a team selection twist for everyone.
 
+            Given his dominance, we’ve decide to make Scheffler the inflection point in this pool – so you have a simple choice:
+
+                1. Choose Scottie Scheffler and forego any Group 1 picks – then choose 1 player from the remaining 9 slots for a total of 10 players.
+                2. Neglect Scottie Scheffler but instead choose two players from Group 1 and one player from the remaining 9 slots for a total of 11 players.           
+
+            Hopefully that is straightforward enough?
+
+            Looking forward to seeing where the picks fall.
+
+            Be sure to take a close look at future 15X Major Winner Talor Gooch who is a bargain in Group 5!    
             
             ### Scoring System
             No matter which path you choose, only your Top 5 players will count towards your team's score (with the Field Approach you simply have one more player to draw from).
@@ -34,8 +43,26 @@ st.markdown('''
             A 3-shot bonus (-3) will be applied if you select the winner.
             Teams must have a minimum of 5 players make the cut to qualify for prizing.
             
-            ### Entry Details
-            Team Entry Cost $25 (hold until post tournament).
-            Theams must be submitted on or before Tuesday April 9th at 9:00pm EST to <morrison.kylejames@gmail.com>.
+            ### Post Picks Update
+            Looks like the conditions are going to be soft and wet, which should bring the field closer together.
+            We have 23 teams participating and it seems the cost of a tired new father Scheffler was too much for most of the pool - only 4 Teams are rolling the dice on the World #1.
+
+            With our field now set, we’ll payout the winnings as follows:
+
+            First Place     $300
+            Second Place    $150
+            Third Place     $125
             ''')
 
+
+
+course_table = {
+    "Hole": [1, 2, 3, 4, 5, 6, 7, 8, 9, "Out", 10, 11, 12, 13, 14, 15, 16, 17, 18, "In", "Total"],
+    "Name": ["Cut the Corner", "The Ridge", "Floyds Fork", "Short 'n Sweet", "Fade Away", "The Bear", "Players Pick", "Thor's Hammer", "The Rise", "", "Turns", "On the Edge", "Odin's Revenge", "The Island", "Two Tears", "On the Rocks", "Down the Stretch", "No Mercy", "Gahm Over", "", "Source:[2]"],
+    "Yards": [484, 500, 208, 372, 463, 495, 597, 190, 415, 3724, 590, 211, 494, 351, 254, 435, 508, 472, 570, 3885, 7609],
+    "Par": [4, 4, 3, 4, 4, 4, 5, 3, 4, 35, 5, 3, 4, 4, 3, 4, 4, 4, 5, 36, 71]
+}
+
+df_course_table = pd.DataFrame(course_table)
+
+st.table(df_course_table)

@@ -11,14 +11,19 @@ st.set_page_config(
     layout='wide',
 )
 
-st.write("# Pool Leaderboard :trophy:")
+# GLOBAL CONSTANTS
+TOURNAMENT_NAME_LOOKUP = 'pga_championship'
+TOURNAMENT_NAME_LABEL = 'PGA Championship'
+YEAR_LABEL = '2024'
 
-LOGO_IMAGE_PATH = 'images/MastersTournamentLogo.png'
+st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Leaderboard :trophy:")
+
+LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
 
-set_bg_hack('images/augusta_6th_hole.png')
+#set_bg_hack('images/augusta_6th_hole.png')
 
-TEAM_SELECTIONS_PATH = 'tables/pool_team_selections.csv'
+TEAM_SELECTIONS_PATH = f'tables/{TOURNAMENT_NAME_LOOKUP}/pool_picks.csv'
 
 # FUNCTION DEFINITIONS
 def pull_scores(url='https://www.espn.com/golf/leaderboard'):
@@ -46,15 +51,15 @@ def convert_golf_scores(df):
 # LOAD DATA TABLES
 pulled_scores = pull_scores()
 #st.dataframe(pulled_scores)
-df_masters = convert_golf_scores(df=pulled_scores)
+df_golfers = convert_golf_scores(df=pulled_scores)
 #st.dataframe(df_masters)
 team_selections_df = pd.read_csv(TEAM_SELECTIONS_PATH)
 score_cards = pd.merge(team_selections_df,
-                       df_masters,
+                       df_golfers,
                        how='left',
-                       left_on='mst_player',
+                       left_on='golfer',
                        right_on='PLAYER')
-top_5_df = score_cards.groupby('pool_player_name').apply(keep_top_5_scores, include_groups = False)
+top_5_df = score_cards.groupby('player').apply(keep_top_5_scores, include_groups = False)
 #.reset_index(drop=True)
 #top_5_df = score_cards.groupby('pool_player_name')['SCORE'].nsmallest(5)
 #top_5_df = score_cards.groupby('pool_player_name', group_keys=False).apply(keep_top_5_scores)
@@ -62,7 +67,7 @@ top_5_df = score_cards.groupby('pool_player_name').apply(keep_top_5_scores, incl
 #st.dataframe(top_5_df)
 #st.table(top_5_df)
 # Group by 'pool_player_name' again and sum the 'total'
-result = top_5_df.groupby('pool_player_name')[['SCORE', 'TODAY','TOT']].sum()
+result = top_5_df.groupby('player')[['SCORE', 'TODAY','TOT']].sum()
 
 # Convert the result to a DataFrame
 result_df = result.reset_index()
@@ -77,7 +82,7 @@ st.dataframe(result_df,
                     min_value=-100,
                     max_value=1500,
                     step=1),
-                "pool_player_name": st.column_config.TextColumn(
+                "player": st.column_config.TextColumn(
                     "Player", width="medium")
                 },
              height=900,use_container_width=True, hide_index=True)
@@ -86,10 +91,10 @@ st.dataframe(result_df,
 
 st.write("## Compare Players :scales:")
 compare1, compare2 = st.columns(2)
-players = score_cards['pool_player_name'].unique()
+players = score_cards['player'].unique()
 column_configs = {"TOT": st.column_config.NumberColumn("TOTAL"),
                   "group_number": st.column_config.NumberColumn("G#"),
-                  "mst_player": st.column_config.TextColumn("GOLFER", width="medium"),
+                  "golfer": st.column_config.TextColumn("GOLFER", width="medium"),
                   "SCORE": st.column_config.NumberColumn("SCORE"),
                   "TODAY": st.column_config.NumberColumn("TODAY"),
                   "THRU": st.column_config.TextColumn("THRU")
@@ -98,13 +103,13 @@ column_configs = {"TOT": st.column_config.NumberColumn("TOTAL"),
 with compare1:
     selected_score1 = st.selectbox(
         'Select player:',
-        result_df['pool_player_name'].unique(),
+        result_df['player'].unique(),
         key='score1'   
     )
     # Filter the DataFrame based on the selected score
-    filtered_df1 = score_cards[(score_cards['pool_player_name'] == selected_score1)]
+    filtered_df1 = score_cards[(score_cards['player'] == selected_score1)]
     # Display the filtered DataFrame
-    st.dataframe(filtered_df1[['group_number','POS','mst_player','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
+    st.dataframe(filtered_df1[['group_number','POS','golfer','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
                  use_container_width=True, 
                  hide_index=True,
                  column_config=column_configs)
@@ -112,13 +117,13 @@ with compare1:
 with compare2:
     selected_score2 = st.selectbox(
         'Select player:',
-        result_df['pool_player_name'].unique(),
+        result_df['player'].unique(),
         key='score2'   
     )
     # Filter the DataFrame based on the selected score
-    filtered_df2 = score_cards[(score_cards['pool_player_name'] == selected_score2)]
+    filtered_df2 = score_cards[(score_cards['player'] == selected_score2)]
     # Display the filtered DataFrame
-    st.dataframe(filtered_df2[['group_number','POS','mst_player','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
+    st.dataframe(filtered_df2[['group_number','POS','golfer','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
                  use_container_width=True, 
                  hide_index=True,
                  column_config=column_configs)

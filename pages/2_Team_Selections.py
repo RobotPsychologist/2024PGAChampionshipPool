@@ -11,57 +11,33 @@ st.set_page_config(
     layout='wide',
 )
 
+TOURNAMENT_NAME_LOOKUP = 'pga_championship'
+TOURNAMENT_NAME_LABEL = 'PGA Championship'
+YEAR_LABEL = '2024'
+
 st.write("# Team Selections :abacus:")
-set_bg_hack("images/clubhouse.png")
-LOGO_IMAGE_PATH = 'images/MastersTournamentLogo.png'
+#set_bg_hack("images/clubhouse.png")
+LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
 
 group1, group2 = st.columns([0.5 , 0.5]) #group2 [0.2 , 0.2, 0.2, 0.2, 0.2]
 
-grp1Table =  pd.DataFrame({
-                    'Player': ['Scottie Scheffler', 'Rory McIlroy', 'Jon Rahm', 'Brooks Koepka', 'Jordan Spieth', 'Dustin Johnson', 'Viktor Hovland', 'Xander Schauffele', 'Patrick Cantlay', 'Cameron Smith'],
-                    'Masters': ['🟩', '', '🟩', '', '🟩','🟩', '', '', '', ''],
-                    'Country': ['🇺🇸', '🇬🇧', '🇪🇸', '🇺🇸', '🇺🇸', '🇺🇸', '🇳🇴', '🇺🇸', '🇺🇸', '🇦🇺'],
-                    'Picked': [18,4,4,6,1,1,2,4,1,0]
-                    })
+df = pd.read_csv(f'tables/{TOURNAMENT_NAME_LOOKUP}/group_counts.csv')
+df.drop(columns=['espn_check'], inplace=True)
 
-grp2Table = pd.DataFrame({
-                    'Player': ['Will Zalatoris', 'Hideki Matsuyama', 'Ludvig Aberg', 'Tony Finau', 'Bryson DeChambeau','Collin Morikawa','Matt Fitzpatrick', 'Joaquin Niemann', 'Wyndham Clark', 'Brain Harman' ],
-                    'Masters': ['','🟩','','','','','','','','',],
-                    'Country': ['🇺🇸','🇯🇵','🇸🇪','🇺🇸','🇺🇸','🇺🇸','🏴󠁧󠁢󠁥󠁮󠁧󠁿','🇨🇱','🇺🇸','🇺🇸'],
-                    'Picked': [5,10,3,7,0,5,5,4,11,5]
-                    })
+total_groups = df['group_number'].nunique()
+split_num = total_groups // 2
 
-grp3Table = pd.DataFrame({
-                    'Player': ['Justin Thomas', 'Tommy Fleetwood', 'Max Homa', 'Cameron Young', 'Shane Lowry', 'Jason Day', 'Patrick Reed', 'Sahith Theegala', 'Sam Burns', 'Min Woo Lee', 'Sung-Jae Im', 'Tom Kim', 'Tyrrell Hatton', 'Rickie Fowler', 'Justin Rose', 'Phil Mickelson', 'Tiger Woods', 'Sergio Garcia', 'Adam Scott', 'Corey Conners'],
-                    'Masters': ['','','','','','','🟩','','','','','','','','','🟩🟩🟩','🟩🟩🟩🟩🟩','🟩','🟩',''],
-                    'Country': ['🇺🇸','🏴󠁧󠁢󠁥󠁮󠁧󠁿','🇺🇸','🇺🇸','🇮🇪','🇦🇺','🇺🇸','🇺🇸','🇺🇸','🇦🇺','🇰🇷','🇰🇷','🏴󠁧󠁢󠁥󠁮󠁧󠁿','🇺🇸','🏴󠁧󠁢󠁥󠁮󠁧󠁿','🇺🇸','🇺🇸','🇪🇸','🇦🇺','🇨🇦'],
-                    'Picked': [6,5,6,5,9,1,0,4,1,1,1,1,0,3,1,2,1,0,0,5]
-                    })
-
-grp4Table = pd.DataFrame({
-                    'Player': ['Si Woo Kim', 'Chris Kirk', 'Nick Taylor', 'J.T. Poston', 'Nick Dunlap', 'Keegan Bradley', 'Jake Knapp', 'Harris English', 'Cameron Davis', 'Thorbjorn Olesen', 'Mattieu Pavon', 'Sepp Straka', 'Eric Cole', 'Russell Henley', 'Gary Woodland', 'Emiliano Grillo', 'Nicolai Holgaard', 'Adam Hadwin', 'Luke List', 'Stephan Jaeger'],
-                    'Masters': ['','','','','','','','','','','','','','','','','','','',''],
-                    'Country': ['🇰🇷','🇺🇸','🇨🇦','🇺🇸','🇺🇸','🇺🇸','🇺🇸','🇺🇸','🇦🇺','🇩🇰','🇫🇷','🇦🇹','🇺🇸','🇺🇸','🇺🇸','🇦🇷','🇩🇰','🇨🇦','🇺🇸','🇩🇪'],
-                    'Picked': [7,3,17,0,2,3,1,0,1,0,1,0,0,4,1,0,1,6,1,0]
-                    })
-
-grp5Table = pd.DataFrame({
-                    'Player': ['Charl Schwartzel', 'Ryan Fox', 'Kurt Kitayama', 'Adrian Meronk', 'Bubba Watson', 'Danny Willett', 'Grayson Murray', 'Denny McCarthy', 'Ryo Hisatsune', 'Lucas Glover', 'Taylor Moore', 'Peter Malnati', 'Eric van Rooyen', 'Zach Johnson', 'Mike Weir', 'Jose Maria Olazabal', 'Fred Couples', 'Vijay Singh', 'Christo Lamprecht', 'Adam Schenk'],
-                    'Masters': ['🟩','','','','🟩🟩','🟩','','','','','','','','🟩','🟩','🟩','🟩','🟩','',''],
-                    'Country': ['🇿🇦','🇦🇺','🇺🇸','🇵🇱','🇺🇸','🏴󠁧󠁢󠁥󠁮󠁧󠁿','🇺🇸','🇺🇸','🇯🇵','🇺🇸','🇺🇸','🇺🇸','🇿🇦','🇺🇸','🇨🇦','🇪🇸','🇺🇸','🇫🇯','🇿🇦','🇺🇸'],
-                    'Picked': [1,4,0,2,1,5,2,8,0,3,6,2,7,2,0,0,0,1,0,2]
-                    })
 with group1:
-    st.write("### Group 1")
-    st.dataframe(grp1Table[['Player', 'Masters', 'Country', 'Picked']], hide_index=True, use_container_width=True)
-    st.write("### Group 3")
-    st.dataframe(grp3Table, hide_index=True, use_container_width=True)
-    st.write("### Group 5")
-    st.dataframe(grp5Table, hide_index=True, use_container_width=True)
+    for i in range(1, total_groups+1):
+        st.write(f"### Group {i}")
+        st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True)
+        if split_num == i:
+            break
 
 with group2:
-    st.write("### Group 2")
-    st.dataframe(grp2Table, hide_index=True, use_container_width=True)
-    st.write("### Group 4")
-    st.dataframe(grp4Table, hide_index=True, use_container_width=True)
+    for i in range(split_num+1, total_groups+1):
+        st.write(f"### Group {i}")
+        st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True)
+        if total_groups == i:
+            break

@@ -11,12 +11,16 @@ st.set_page_config(
     layout='wide',
 )
 
-st.write("# 2024 Masters Pool Live Results :man-golfing:")
+TOURNAMENT_NAME_LOOKUP = 'pga_championship'
+TOURNAMENT_NAME_LABEL = 'PGA Championship'
+YEAR_LABEL = '2024'
 
-LOGO_IMAGE_PATH = 'images/MastersTournamentLogo.png'
+st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Live Results :man-golfing:")
+
+LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LABEL}/TournamentLogo.png'
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
 
-set_bg_hack("images/augusta_13th_hole.png")
+#set_bg_hack("images/augusta_13th_hole.png")
 
 # Load the data from ESPN
 url = 'https://www.espn.com/golf/leaderboard'

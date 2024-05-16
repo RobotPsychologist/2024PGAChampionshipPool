@@ -10,20 +10,23 @@ st.set_page_config(
     layout='wide',
 )
 
-LOGO_IMAGE_PATH = 'images/MastersTournamentLogo.png'
+# GLOBAL CONSTANTS
+TOURNAMENT_NAME_LOOKUP = 'pga_championship'
+TOURNAMENT_NAME_LABEL = 'PGA Championship'
+YEAR_LABEL = '2024'
+
+LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
 
 
 st.write("# Pool Scorecards :1234:")
-set_bg_hack('images/augusta_6th_hole.png')
+#set_bg_hack('images/augusta_6th_hole.png')
 
-# CONSTANTS
-PLAYER_LIST = ['Jeff Cain','Barry Ferguson','Ryan Ferguson','Shaun Ferguson','Duncan Fraser','Jordan Gleed',
-              'Dave Hanson','Jason Knight','Jaideep Lal','Tazim Lal','Jamie McCarthy','Troy McCann',
-              'Alex Monk','Jim Morrison','Kyle Morrison','Rosemary Morrison','Christopher Readshaw','Patrick Readshaw',
-              'Pam Readshaw','Paul Readshaw','Christopher Risi','Frank Risi','Ali Robitaille','Jeff Wand']
-TEAM_SELECTIONS_PATH = 'tables/pool_team_selections.csv'
-team_count = len(PLAYER_LIST)
+# DATA PREPARATION
+team_selections_path = f'tables/{TOURNAMENT_NAME_LOOKUP}/pool_picks.csv'
+df_player_picks = pd.read_csv(f'tables/{TOURNAMENT_NAME_LOOKUP}/pool_picks.csv')
+player_list = df_player_picks['player'].unique().tolist()
+team_count = len(player_list)
 column_count = floor(team_count / 4)
 column_4_count = column_count - (team_count % 4)
 
@@ -33,18 +36,18 @@ def pull_scores(url='https://www.espn.com/golf/leaderboard'):
     dfs = pd.read_html(url)
     return dfs[0]
 
-def team_selection_table(team, pool_team_selections_df, pool_player_names_df=PLAYER_LIST):
+def team_selection_table(team, pool_team_selections_df, pool_player_names_df=player_list):
     '''Displays the team selection table with populated scores for a given team'''
     pool_player_name = pool_player_names_df[team]
     st.write(f"### {pool_player_name}")
-    col_select = ['group_number','POS', 'mst_player','SCORE','TODAY','THRU','TOT']
+    col_select = ['group_number','POS', 'golfer','SCORE','TODAY','THRU','TOT']
     st.dataframe(pool_team_selections_df.loc[pool_team_selections_df['pool_player_name'] == pool_player_name,
                                              col_select],
                  hide_index=True,
                  use_container_width=True,
                  column_config={
                         "group_number": st.column_config.NumberColumn("G#"),
-                        "mst_player": st.column_config.TextColumn("GOLFER", width="medium"),
+                        "golfer": st.column_config.TextColumn("GOLFER", width="medium"),
                         "TOT": st.column_config.NumberColumn(
                             "Total",
                             width="small",
@@ -55,10 +58,8 @@ def team_selection_table(team, pool_team_selections_df, pool_player_names_df=PLA
                     }
                 )
  
-df_masters = pull_scores()
-team_selections_df = pd.read_csv(TEAM_SELECTIONS_PATH)   
-
-score_cards = pd.merge(team_selections_df, df_masters, how='left', left_on='mst_player', right_on='PLAYER') 
+df_golfers = pull_scores()
+score_cards = pd.merge(df_player_picks, df_golfers, how='left', left_on='golfer', right_on='PLAYER') 
 
 team_row1, team_row2, team_row3, team_row4 = st.columns([0.25 , 0.25, 0.25, 0.25])
 
