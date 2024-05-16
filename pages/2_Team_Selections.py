@@ -35,14 +35,14 @@ COLUMN_CONFIG={"golfer": st.column_config.TextColumn("Golfer", width="medium"),
 with group1:
     for i in range(0, total_groups+1):
         st.write(f"### Group {i}")
-        st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG)
+        st.dataframe(df[df['group_number'] == i][["golfer", "pick_count"]], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG)
         if split_num == i:
             break
 
 with group2:
     for i in range(split_num+1, total_groups):
         st.write(f"### Group {i}")
-        st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG)
+        st.dataframe(df[df['group_number'] == i][["golfer", "pick_count"]], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG)
 
 
 
