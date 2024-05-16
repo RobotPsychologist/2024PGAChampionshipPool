@@ -88,6 +88,8 @@ st.dataframe(result_df,
              height=900,use_container_width=True, hide_index=True)
 # Display the DataFrame
 #st.table(df.groupby('pool_player_name')['total'].nsmallest(5))
+st.write('Note: The TODAY column does not include the 3 shot bonus for the tournament leader. The SCORE column does include the 3 shot bonus automatically.')
+
 
 st.write("## Compare Players :scales:")
 compare1, compare2 = st.columns(2)
