@@ -30,7 +30,7 @@ def pull_scores(url='https://www.espn.com/golf/leaderboard'):
     '''Pulls the current scores from the ESPN leaderboard and returns a dataframe with the scores'''
     dfs = pd.read_html(url)
     ldbrd_df = dfs[0]
-    ldbrd_df = ldbrd_df.loc[~ldbrd_df.map(lambda x: ('cut' in str(x)) or ('CUT' in str(x))).any(axis=1)]
+    ldbrd_df = ldbrd_df.loc[~ldbrd_df.map(lambda x: ('cut' in str(x)) or ('WD' in str(x)) or ('CUT' in str(x))).any(axis=1)]
     ldbrd_df = ldbrd_df.loc[~ldbrd_df.map(lambda x: 'Projected' in str(x)).any(axis=1)]
     return ldbrd_df
 
