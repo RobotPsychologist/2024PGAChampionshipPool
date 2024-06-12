@@ -81,7 +81,7 @@ team_row1, team_row2, team_row3, team_row4 = st.columns([0.25 , 0.25, 0.25, 0.25
 
 split_count = team_count // 4
 split_count += 1
-remainder = split_count - team_count
+remainder = team_count - split_count
 
 
 with team_row1:
