@@ -5,8 +5,8 @@ import streamlit as st
 import pandas as pd
 from utils.background_images import set_bg_hack
 
-TOURNAMENT_NAME_LOOKUP = 'pga_championship'
-TOURNAMENT_NAME_LABEL = 'PGA Championship'
+TOURNAMENT_NAME_LOOKUP = 'us_open'
+TOURNAMENT_NAME_LABEL = 'US Open'
 YEAR_LABEL = '2024'
 
 st.set_page_config(

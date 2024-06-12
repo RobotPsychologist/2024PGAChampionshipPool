@@ -12,8 +12,8 @@ st.set_page_config(
 )
 
 # GLOBAL CONSTANTS
-TOURNAMENT_NAME_LOOKUP = 'pga_championship'
-TOURNAMENT_NAME_LABEL = 'PGA Championship'
+TOURNAMENT_NAME_LOOKUP = 'us_open'
+TOURNAMENT_NAME_LABEL = 'US Open'
 YEAR_LABEL = '2024'
 
 st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Leaderboard :trophy:")
