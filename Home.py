@@ -10,8 +10,8 @@ st.set_page_config(
     layout='wide',
 )
 
-TOURNAMENT_NAME_LOOKUP = 'pga_championship'
-TOURNAMENT_NAME_LABEL = 'PGA Championship'
+TOURNAMENT_NAME_LOOKUP = 'us_open'
+TOURNAMENT_NAME_LABEL = 'US Open'
 YEAR_LABEL = '2024'
 LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
 
@@ -23,35 +23,19 @@ st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
 
 st.markdown('''
             ## Details & Rules
-            We’re once again offering a team selection twist for everyone.
+            Once again we switched up the format here to keep everyone on their toes.
 
-            Given his dominance, we’ve decide to make Scheffler the inflection point in this pool – so you have a simple choice:
+            This format favors the favourites … we’re going to make the pool top-heavy with “big players” and rely less on the mules in the field.
 
-                1. Choose Scottie Scheffler and forego any Group 1 picks – then choose 1 player from the remaining 9 slots for a total of 10 players.
-                2. Neglect Scottie Scheffler but instead choose two players from Group 1 and one player from the remaining 9 slots for a total of 11 players.           
+            Everyone will build a team of 10 players, but with 4 from the marquee first group, two from the second, and one from each of the remaining.
 
-            Hopefully that is straightforward enough?
+            Your team must also include a player who “Monday qualified” for the tournament this week during Golf's Longest Day (final group) – and there are some relevant names in that mix.
 
-            Looking forward to seeing where the picks fall.
+            Don’t toss the qualifier pick away either, in 2005 New Zealand’s Michael Campbell qualified for Pinehurst and defeated runner up Tiger Woods to win his only tournament – the US Open.           
 
-            Be sure to take a close look at future 15X Major Winner Talor Gooch who is a bargain in Group 5!    
+            We’re fully digital in this version of the pool, so please just fill in the link here with your email.
             
-            ### Scoring System
-            No matter which path you choose, only your Top 5 players will count towards your team's score (with the Field Approach you simply have one more player to draw from).
-            
-            The winner of the pool will be the team with the lowest combined score to par from their top 5 players.
-            A 3-shot bonus (-3) will be applied if you select the winner.
-            Teams must have a minimum of 5 players make the cut to qualify for prizing.
-            
-            ### Post Picks Update
-            Looks like the conditions are going to be soft and wet, which should bring the field closer together.
-            We have 23 teams participating and it seems the cost of a tired new father Scheffler was too much for most of the pool - only 4 Teams are rolling the dice on the World #1.
-
-            With our field now set, we’ll payout the winnings as follows:
-
-            First Place     \$300
-            Second Place    \$150
-            Third Place     \$125
+            Good luck everyone!
             ''')
 
 
