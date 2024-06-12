@@ -44,35 +44,41 @@ df = pd.merge(df,
 total_groups = df['group_number'].nunique()
 split_num = total_groups // 2
 
-try:
-    COLUMN_CONFIG={'golfer': st.column_config.TextColumn('Golfer', width='medium'),      
+COLUMN_CONFIG_CLEAN={'golfer': st.column_config.TextColumn('Golfer', width='medium'),      
                 'pick_count': st.column_config.NumberColumn('Pick Count', width='small'),
                 'TOT': st.column_config.NumberColumn('Total', width='small'),
-                    "THRU": st.column_config.TextColumn("THRU")
+                "THRU": st.column_config.TextColumn("THRU")
                     }
 
+COLUMN_CONFIG_ERROR={'golfer': st.column_config.TextColumn('Golfer', width='medium'),      
+                'pick_count': st.column_config.NumberColumn('Pick Count', width='small'),
+                    }
+
+try:
     with group1:
         for i in range(1, total_groups+1):
             st.write(f"### Group {i}")
-            st.dataframe(df[df['group_number'] == i][['golfer', 'pick_count','THRU','SCORE', 'TODAY','R1','R2','R3','R4','TOT']], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG)
+            st.dataframe(df[df['group_number'] == i][['golfer', 'pick_count','THRU','SCORE', 'TODAY','R1','R2','R3','R4','TOT']], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
             if split_num == i:
                 break
 
     with group2:
         for i in range(split_num+1, total_groups):
             st.write(f"### Group {i}")
-            st.dataframe(df[df['group_number'] == i][['golfer', 'pick_count','THRU','SCORE', 'TODAY','R1','R2','R3','R4','TOT']], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG)
+            st.dataframe(df[df['group_number'] == i][['golfer', 'pick_count','THRU','SCORE', 'TODAY','R1','R2','R3','R4','TOT']], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
 
 except:
     st.write('If you see this message the tournament hasn\'t started or there was an error loading the data, please contact Christopher or try again later. Thank you!')
+
+
     with group1:
         for i in range(1, total_groups+1):
             st.write(f"### Group {i}")
-            st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True)
+            st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
             if split_num == i:
                 break
 
     with group2:
         for i in range(split_num+1, total_groups):
             st.write(f"### Group {i}")
-            st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True)
+            st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
