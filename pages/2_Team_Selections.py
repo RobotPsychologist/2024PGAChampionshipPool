@@ -52,6 +52,8 @@ COLUMN_CONFIG_CLEAN={'golfer': st.column_config.TextColumn('Golfer', width='medi
 
 COLUMN_CONFIG_ERROR={'golfer': st.column_config.TextColumn('Golfer', width='medium'),      
                 'pick_count': st.column_config.NumberColumn('Pick Count', width='small'),
+                'group_number': st.column_config.NumberColumn('Group', width='small'),
+                'TEE TIME': st.column_config.TextColumn('Tee Time', width='small'),
                     }
 
 try:
@@ -64,6 +66,10 @@ try:
 
     with group2:
         for i in range(split_num+1, total_groups+1):
+            if i != 6:
+                st.write(f"### Group {i}")
+            else:
+                st.write(f"### Group Q")
             st.write(f"### Group {i}")
             st.dataframe(df[df['group_number'] == i][['golfer', 'pick_count','THRU','SCORE', 'TODAY','R1','R2','R3','R4','TOT']], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
 
@@ -75,11 +81,14 @@ except:
         for i in range(1, total_groups+1):
             if i != 1:
                 st.write(f"### Group {i}")
-            st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
+            st.dataframe(df[df['group_number'] == i]['golfer', 'pick_count', 'group_number', 'TEE TIME'], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
             if split_num == i:
                 break
 
     with group2:
         for i in range(split_num+1, total_groups+1):
-            st.write(f"### Group {i}")
-            st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
+            if i != 6:
+                st.write(f"### Group {i}")
+            else:
+                st.write(f"### Group Q")
+            st.dataframe(df[df['group_number'] == i][['golfer', 'pick_count', 'group_number', 'TEE TIME']], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
