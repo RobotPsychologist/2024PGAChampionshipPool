@@ -60,6 +60,18 @@ def team_selection_table(team, pool_team_selections_df, pool_player_names_df=pla
                     )
     except:
         st.write("Wating for tournament to start or data loading erorr...")
+        col_select = ['group_number', 'golfer','TEE TIME']
+        st.dataframe(pool_team_selections_df.loc[pool_team_selections_df['player'] == pool_player_name,
+                                        col_select],
+            hide_index=True,
+            use_container_width=True,
+            column_config={
+                    "group_number": st.column_config.NumberColumn("G#"),
+                    "golfer": st.column_config.TextColumn("GOLFER", width="medium"),
+                    "TEE TIME": st.column_config.TextColumn("Tee Time", width="small"),
+                    
+                }
+            )
  
 df_golfers = pull_scores()
 score_cards = pd.merge(df_player_picks, df_golfers, how='left', left_on='golfer', right_on='PLAYER') 
