@@ -26,6 +26,7 @@ st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Scorecards :1234:")
 team_selections_path = f'tables/{TOURNAMENT_NAME_LOOKUP}/pool_picks.csv'
 df_player_picks = pd.read_csv(f'tables/{TOURNAMENT_NAME_LOOKUP}/pool_picks.csv')
 player_list = df_player_picks['player'].unique().tolist()
+st.dataframe(player_list)
 team_count = len(player_list)
 column_count = floor(team_count / 4)
 column_4_count = column_count - (team_count % 4)
