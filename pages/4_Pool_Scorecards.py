@@ -79,17 +79,22 @@ score_cards = pd.merge(df_player_picks, df_golfers, how='left', left_on='golfer'
 
 team_row1, team_row2, team_row3, team_row4 = st.columns([0.25 , 0.25, 0.25, 0.25])
 
+split_count = team_count // 4
+split_count += 1
+remainder = split_count - team_count
+
+
 with team_row1:
-    for team1 in range(0, column_count):
+    for team1 in range(0, split_count):
         team_selection_table(team=team1, pool_team_selections_df=score_cards)
 with team_row2:
-    for team2 in range(column_count, 2*column_count):
+    for team2 in range(split_count, 2*split_count):
         team_selection_table(team=team2, pool_team_selections_df=score_cards)
         
 with team_row3:
-    for team3 in range(2*column_count, 3*column_count):
+    for team3 in range(2*split_count, 3*split_count):
         team_selection_table(team=team3, pool_team_selections_df=score_cards)
         
 with team_row4:
-    for team4 in range(3*column_count, 3*column_count+column_4_count):
+    for team4 in range(3*split_count, 3*split_count+remainder):
         team_selection_table(team=team4, pool_team_selections_df=score_cards)
