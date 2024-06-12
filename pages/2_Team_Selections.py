@@ -63,7 +63,7 @@ try:
                 break
 
     with group2:
-        for i in range(split_num+1, total_groups):
+        for i in range(split_num+1, total_groups+1):
             st.write(f"### Group {i}")
             st.dataframe(df[df['group_number'] == i][['golfer', 'pick_count','THRU','SCORE', 'TODAY','R1','R2','R3','R4','TOT']], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
 
@@ -73,12 +73,13 @@ except:
 
     with group1:
         for i in range(1, total_groups+1):
-            st.write(f"### Group {i}")
+            if i != 1:
+                st.write(f"### Group {i}")
             st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
             if split_num == i:
                 break
 
     with group2:
-        for i in range(split_num+1, total_groups):
+        for i in range(split_num+1, total_groups+1):
             st.write(f"### Group {i}")
             st.dataframe(df[df['group_number'] == i], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
