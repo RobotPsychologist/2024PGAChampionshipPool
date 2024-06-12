@@ -96,5 +96,5 @@ with team_row3:
         team_selection_table(team=team3, pool_team_selections_df=score_cards)
         
 with team_row4:
-    for team4 in range(3*split_count, 3*split_count+remainder-1):
+    for team4 in range(3*split_count, 3*split_count+remainder):
         team_selection_table(team=team4, pool_team_selections_df=score_cards)
