@@ -32,7 +32,11 @@ dfs = pd.read_html(url)
 df = dfs[0]
 
 # Display the DataFrame
-st.dataframe(df[['POS','PLAYER','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],hide_index=True, use_container_width=True, height=800)
+try:
+    st.dataframe(df[['POS','PLAYER','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],hide_index=True, use_container_width=True, height=800)
+except:
+    st.write('If you see this message the tournament hasn\'t started or there was an error loading the data, please contact Christopher or try again later. Thank you!')
+    st.dataframe(df)
 
 # Read the CSV file
 #df = pd.read_csv('tables/masters_players.csv')
