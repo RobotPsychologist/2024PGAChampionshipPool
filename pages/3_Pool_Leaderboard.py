@@ -30,9 +30,9 @@ def pull_scores(url='https://www.espn.com/golf/leaderboard'):
     ldbrd_df = ldbrd_df.loc[~ldbrd_df.map(lambda x: 'Projected' in str(x)).any(axis=1)]
     return ldbrd_df
 
-def keep_top_5_scores(df):
+def keep_top_k_scores(df, k=5):
     '''Returns the lowest 5 scores for each group.'''
-    return df.nsmallest(5, 'SCORE')
+    return df.nsmallest(k, 'SCORE')
 
 def convert_golf_scores(df):
     '''Many data sources come in mixed data formats. This function converts the scores to integers.'''
@@ -60,7 +60,7 @@ score_cards = pd.merge(team_selections_df,
                        how='left',
                        left_on='golfer',
                        right_on='PLAYER')
-top_5_df = score_cards.groupby('player').apply(keep_top_5_scores, include_groups = False)
+top_5_df = score_cards.groupby('player').apply(keep_top_k_scores, include_groups = False)
 
 # Group by 'pool_player_name' again and sum the 'total'
 result = top_5_df.groupby('player')[['SCORE', 'TODAY','TOT']].sum()
