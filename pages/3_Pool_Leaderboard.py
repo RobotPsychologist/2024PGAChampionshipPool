@@ -51,11 +51,11 @@ def convert_golf_scores(df):
 # LOAD DATA TABLES
 pulled_scores = pull_scores()
 #st.dataframe(pulled_scores)
-try:
-    df_golfers = convert_golf_scores(df=pulled_scores)
-except:
-    st.write('Error: Could not pull the scores from data source. Please try again later.')
-    st.stop()
+#try:
+df_golfers = convert_golf_scores(df=pulled_scores)
+#except:
+#    st.write('Error: Could not pull the scores from data source. Please try again later.')
+#    st.stop()
 #st.dataframe(df_masters)
 team_selections_df = pd.read_csv(TEAM_SELECTIONS_PATH)
 score_cards = pd.merge(team_selections_df,

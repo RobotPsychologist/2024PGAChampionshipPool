@@ -70,7 +70,6 @@ try:
                 st.write(f"### Group {i}")
             else:
                 st.write(f"### Group Q")
-            st.write(f"### Group {i}")
             st.dataframe(df[df['group_number'] == i][['golfer', 'pick_count','THRU','SCORE', 'TODAY','R1','R2','R3','R4','TOT']], hide_index=True, use_container_width=True, column_config=COLUMN_CONFIG_ERROR)
 
 except:
