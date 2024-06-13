@@ -15,15 +15,11 @@ st.set_page_config(
 TOURNAMENT_NAME_LOOKUP = 'us_open'
 TOURNAMENT_NAME_LABEL = 'US Open'
 YEAR_LABEL = '2024'
+LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png' # sidebar image location
+TEAM_SELECTIONS_PATH = f'tables/{TOURNAMENT_NAME_LOOKUP}/pool_picks.csv' # data location
 
 st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Leaderboard :trophy:")
-
-LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
-
-#set_bg_hack('images/augusta_6th_hole.png')
-
-TEAM_SELECTIONS_PATH = f'tables/{TOURNAMENT_NAME_LOOKUP}/pool_picks.csv'
 
 # FUNCTION DEFINITIONS
 def pull_scores(url='https://www.espn.com/golf/leaderboard'):
@@ -39,24 +35,25 @@ def keep_top_5_scores(df):
     return df.nsmallest(5, 'SCORE')
 
 def convert_golf_scores(df):
-    '''Converts the golf scores to integers.'''
+    '''Many data sources come in mixed data formats. This function converts the scores to integers.'''
     df['SCORE'] = df['SCORE'].apply(lambda x: int(x) if x != 'E' and x != '-' else 0)
     df['TODAY'] = df['TODAY'].apply(lambda x: int(x) if x != 'E' and x != '-' else 0)
     df['TOT'] = df['TOT'].apply(lambda x: int(x) if x != 'E' and x != '--'else 0) 
     
-    # Subtract 3 from the score of the top player
+    # Subtract 3 from the score of the top player (Bonus for picking the tournament leader)
     df.loc[df['POS'] == '1', 'SCORE'] = df.loc[df['POS'] == '1', 'SCORE'] - 3
     return df
 
 # LOAD DATA TABLES
 pulled_scores = pull_scores()
-#st.dataframe(pulled_scores)
-#try:
-df_golfers = convert_golf_scores(df=pulled_scores)
-#except:
-#    st.write('Error: Could not pull the scores from data source. Please try again later.')
-#    st.stop()
-#st.dataframe(df_masters)
+
+try:
+    df_golfers = convert_golf_scores(df=pulled_scores)
+except:
+    st.write('Error: Could not pull the scores from data source. Please try again later.')
+    st.stop()
+
+
 team_selections_df = pd.read_csv(TEAM_SELECTIONS_PATH)
 score_cards = pd.merge(team_selections_df,
                        df_golfers,
@@ -64,12 +61,7 @@ score_cards = pd.merge(team_selections_df,
                        left_on='golfer',
                        right_on='PLAYER')
 top_5_df = score_cards.groupby('player').apply(keep_top_5_scores, include_groups = False)
-#.reset_index(drop=True)
-#top_5_df = score_cards.groupby('pool_player_name')['SCORE'].nsmallest(5)
-#top_5_df = score_cards.groupby('pool_player_name', group_keys=False).apply(keep_top_5_scores)
-#top_5_df=score_cards.groupby('pool_player_name',group_keys=False).apply(lambda grp:grp.nsmallest(n=5,columns='SCORE').sort_index())
-#st.dataframe(top_5_df)
-#st.table(top_5_df)
+
 # Group by 'pool_player_name' again and sum the 'total'
 result = top_5_df.groupby('player')[['SCORE', 'TODAY','TOT']].sum()
 
@@ -90,8 +82,7 @@ st.dataframe(result_df,
                     "Player", width="medium")
                 },
              height=900,use_container_width=True, hide_index=True)
-# Display the DataFrame
-#st.table(df.groupby('pool_player_name')['total'].nsmallest(5))
+
 st.write('Note: The TODAY column does not include the 3 shot bonus for the tournament leader. The SCORE column does include the 3 shot bonus automatically.')
 
 
