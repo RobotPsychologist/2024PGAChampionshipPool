@@ -40,7 +40,7 @@ def keep_top_5_scores(df):
 
 def convert_golf_scores(df):
     '''Converts the golf scores to integers.'''
-    df['SCORE'] = df['SCORE'].apply(lambda x: int(x) if x != 'E' else 0)
+    df['SCORE'] = df['SCORE'].apply(lambda x: int(x) if x != 'E' and x != '-' else 0)
     df['TODAY'] = df['TODAY'].apply(lambda x: int(x) if x != 'E' and x != '-' else 0)
     df['TOT'] = df['TOT'].apply(lambda x: int(x) if x != 'E' and x != '--'else 0) 
     
