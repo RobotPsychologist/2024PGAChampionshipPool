@@ -145,8 +145,9 @@ def team_maximus_puncta(df, group_dict=plyr_grp_counts):
     top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 5)], k=1)], axis=0) #G5
     top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 6)], k=1)], axis=0) #G6   
     
-    st.dataframe(top_team,
-                use_container_width=True, 
-                 hide_index=True)
+    st.dataframe(top_team[['group_number','POS','golfer','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
+                    use_container_width=True, 
+                    hide_index=True)
 
+st.write('### Team Maximus Puncta')
 team_maximus_puncta(df_fun_teams_scores)
