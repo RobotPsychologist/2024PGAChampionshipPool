@@ -139,12 +139,11 @@ df_fun_teams_scores = pd.merge(df_fun_teams,
 def team_maximus_puncta(df, group_dict=plyr_grp_counts):
     '''Returns the lowest 5 scores for each group.'''
     top_team = keep_top_k_scores(df[(df['group_number'] == 1)], k=4) #G1
-    #st.write(type(keep_top_k_scores(df[(df['group_number'] == 1)], k=4)))
-    top_team = top_team.concat(keep_top_k_scores(df[(df['group_number'] == 2)], k=2), ignore_index=True) #G2
-    top_team = top_team.concat(keep_top_k_scores(df[(df['group_number'] == 3)], k=1), ignore_index=True) #G3
-    top_team = top_team.concat(keep_top_k_scores(df[(df['group_number'] == 4)], k=1), ignore_index=True) #G4
-    top_team = top_team.concat(keep_top_k_scores(df[(df['group_number'] == 5)], k=1), ignore_index=True) #G5
-    top_team = top_team.concat(keep_top_k_scores(df[(df['group_number'] == 6)], k=1), ignore_index=True) #G6   
+    top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 2)], k=2)], axis=0) #G2
+    top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 3)], k=1)], axis=0) #G3
+    top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 4)], k=1)], axis=0) #G4
+    top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 5)], k=1)], axis=0) #G5
+    top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 6)], k=1)], axis=0) #G6   
     
     st.dataframe(top_team,
                 use_container_width=True, 
