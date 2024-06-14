@@ -124,3 +124,28 @@ with compare2:
                  use_container_width=True, 
                  hide_index=True,
                  column_config=column_configs)
+    
+# Fun Teams
+
+st.write("## Fun Teams :sunglasses:")
+plyr_grp_counts = {"1": 4, "2": 2, "3": 1, "4": 1, "5": 1, "6": 1}
+df_fun_teams = pd.read_csv(f'tables/{TOURNAMENT_NAME_LOOKUP}/group_counts.csv')
+df_fun_teams_scores = pd.merge(df_fun_teams,
+                                df_golfers,
+                                how='left',
+                                left_on='golfer',
+                                right_on='PLAYER')
+
+def team_maximus_puncta(df, group_dict=plyr_grp_counts):
+    '''Returns the lowest 5 scores for each group.'''
+    top_team = keep_top_k_scores(df[(df['group_number'] == 1)], k=4) #G1
+    top_team = top_team.append(keep_top_k_scores(df[(df['group_number'] == 2)], k=2), ignore_index=True) #G2
+    top_team = top_team.append(keep_top_k_scores(df[(df['group_number'] == 3)], k=1), ignore_index=True) #G3
+    top_team = top_team.append(keep_top_k_scores(df[(df['group_number'] == 4)], k=1), ignore_index=True) #G4
+    top_team = top_team.append(keep_top_k_scores(df[(df['group_number'] == 5)], k=1), ignore_index=True) #G5
+    top_team = top_team.append(keep_top_k_scores(df[(df['group_number'] == 6)], k=1), ignore_index=True) #G6   
+    st.dataframe(top_team,
+                use_container_width=True, 
+                 hide_index=True)
+    
+team_maximus_puncta(df_fun_teams_scores)
