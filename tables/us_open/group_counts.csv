@@ -1,24 +1,24 @@
 golfer,espn_check,pick_count,group_number
 Brooks Koepka,Brooks Koepka,4,1
 Bryson DeChambeau,Bryson DeChambeau,8,1
-Cameron Smith,Cameron Smith,2,1
+Cameron Smith,Cameron Smith,3,1
 Collin Morikawa,Collin Morikawa,16,1
 Hideki Matsuyama,Hideki Matsuyama,2,1
 Ludvig Åberg,Ludvig Åberg,5,1
 Max Homa,Max Homa,1,1
 Patrick Cantlay,Patrick Cantlay,0,1
 Rory McIlroy,Rory McIlroy,8,1
-Scottie Scheffler,Scottie Scheffler,18,1
+Scottie Scheffler,Scottie Scheffler,19,1
 Tommy Fleetwood,Tommy Fleetwood,2,1
 Viktor Hovland,Viktor Hovland,6,1
-Wyndham Clark,Wyndham Clark,1,1
-Xander Schauffele,Xander Schauffele,11,1
+Wyndham Clark,Wyndham Clark,2,1
+Xander Schauffele,Xander Schauffele,12,1
 Brian Harman,Brian Harman,1,2
 Dustin Johnson,Dustin Johnson,1,2
-Jordan Spieth,Jordan Spieth,0,2
+Jordan Spieth,Jordan Spieth,1,2
 Justin Rose,Justin Rose,1,2
 Justin Thomas,Justin Thomas,4,2
-Matt Fitzpatrick,Matt Fitzpatrick,4,2
+Matt Fitzpatrick,Matt Fitzpatrick,5,2
 Min Woo Lee,Min Woo Lee,1,2
 Nick Taylor,Nick Taylor,0,2
 Robert MacIntyre,Robert MacIntyre,4,2
@@ -32,7 +32,7 @@ Akshay Bhatia,Akshay Bhatia,0,3
 Austin Eckroat,Austin Eckroat,0,3
 Cameron Young,Cameron Young,1,3
 Chris Kirk,Chris Kirk,0,3
-Corey Conners,Corey Conners,5,3
+Corey Conners,Corey Conners,6,3
 Jason Day,Jason Day,2,3
 Keegan Bradley,Keegan Bradley,1,3
 Mackenzie Hughes,Mackenzie Hughes,1,3
@@ -49,7 +49,7 @@ Erik van Rooyen,Erik van Rooyen,0,4
 Harris English,Harris English,0,4
 Jake Knapp,Jake Knapp,0,4
 Martin Kaymer,Martin Kaymer,0,4
-Matthieu Pavon,Matthieu Pavon,1,4
+Matthieu Pavon,Matthieu Pavon,2,4
 Peter Malnati,Peter Malnati,1,4
 Ryan Fox,Ryan Fox,1,4
 Si Woo Kim,Si Woo Kim,6,4
@@ -60,7 +60,7 @@ Tom Hoge,Tom Hoge,1,4
 Victor Perez,Victor Perez,4,4
 Adam Schenk,Adam Schenk,1,5
 Alex Noren,Alex Noren,4,5
-Christiaan Bezuidenhout,Christiaan Bezuidenhout,5,5
+Christiaan Bezuidenhout,Christiaan Bezuidenhout,6,5
 Emiliano Grillo,Emiliano Grillo,0,5
 Eric Cole,Eric Cole,0,5
 Gary Woodland,Gary Woodland,2,5
@@ -74,7 +74,7 @@ Tiger Woods,Tiger Woods,1,5
 Aaron Rai,Aaron Rai,3,6
 Adam Svensson,Adam Svensson,3,6
 Beau Hossler,Beau Hossler,0,6
-Cam Davis,Cam Davis,2,6
+Cam Davis,Cam Davis,3,6
 Daniel Berger,Daniel Berger,1,6
 David Puig,David Puig,1,6
 Dean Burmester,Dean Burmester,4,6
