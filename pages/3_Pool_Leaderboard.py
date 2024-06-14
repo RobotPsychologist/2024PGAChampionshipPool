@@ -156,7 +156,8 @@ def team_maximus_puncta(df, group_dict=plyr_grp_counts):
     
     st.dataframe(top_team[['group_number','POS','golfer','pick_count','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
                     use_container_width=True, 
-                    hide_index=True)
+                    hide_index=True,
+                    column_config=maximus_configs)
 
 st.write('### Team Maximus Puncta')
 team_maximus_puncta(df_fun_teams_scores)
