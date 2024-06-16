@@ -37,7 +37,10 @@ def keep_top_k_scores(df, k=5):
 def convert_golf_scores(df):
     '''Many data sources come in mixed data formats. This function converts the scores to integers.'''
     df['SCORE'] = df['SCORE'].apply(lambda x: int(x) if x != 'E' and x != '-' else 0)
-    df['TODAY'] = df['TODAY'].apply(lambda x: int(x) if x != 'E' and x != '-' else 0)
+    try:
+        df['TODAY'] = df['TODAY'].apply(lambda x: int(x) if x != 'E' and x != '-' else 0)
+    except:
+        pass
     df['TOT'] = df['TOT'].apply(lambda x: int(x) if x != 'E' and x != '--'else 0) 
     
     # Subtract 3 from the score of the top player (Bonus for picking the tournament leader)
@@ -67,7 +70,7 @@ try:
     result = top_5_df.groupby('player')[['SCORE', 'TODAY','TOT']].sum()
 except:
     result = top_5_df.groupby('player')[['SCORE', 'TOT']].sum()
-    
+
 # Convert the result to a DataFrame
 result_df = result.reset_index()
 
