@@ -144,7 +144,7 @@ with compare2:
                  hide_index=True,
                  column_config=column_configs_active)
     except:
-        st.dataframe(filtered_df2[['group_number','POS','golfer','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
+        st.dataframe(filtered_df2[['group_number','POS','golfer','SCORE','R1','R2','R3','R4','TOT']],
                     use_container_width=True, 
                     hide_index=True,
                     column_config=column_configs_post)
