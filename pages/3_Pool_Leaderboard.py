@@ -95,12 +95,18 @@ st.write('Note: The TODAY column does not include the 3 shot bonus for the tourn
 st.write("## Compare Players :scales:")
 compare1, compare2 = st.columns(2)
 players = score_cards['player'].unique()
-column_configs = {"TOT": st.column_config.NumberColumn("TOTAL"),
+
+column_configs_active = {"TOT": st.column_config.NumberColumn("TOTAL"),
                   "group_number": st.column_config.NumberColumn("G#"),
                   "golfer": st.column_config.TextColumn("GOLFER", width="medium"),
                   "SCORE": st.column_config.NumberColumn("SCORE"),
                   "TODAY": st.column_config.NumberColumn("TODAY"),
                   "THRU": st.column_config.TextColumn("THRU")
+                  }
+column_configs_post = {"TOT": st.column_config.NumberColumn("TOTAL"),
+                  "group_number": st.column_config.NumberColumn("G#"),
+                  "golfer": st.column_config.TextColumn("GOLFER", width="medium"),
+                  "SCORE": st.column_config.NumberColumn("SCORE")
                   }
 
 with compare1:
@@ -112,10 +118,16 @@ with compare1:
     # Filter the DataFrame based on the selected score
     filtered_df1 = score_cards[(score_cards['player'] == selected_score1)]
     # Display the filtered DataFrame
-    st.dataframe(filtered_df1[['group_number','POS','golfer','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
+    try:
+        st.dataframe(filtered_df1[['group_number','POS','golfer','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
+                     use_container_width=True, 
+                     hide_index=True,
+                     column_config=column_configs_active)
+    except:
+        st.dataframe(filtered_df1[['group_number','POS','golfer','SCORE','R1','R2','R3','R4','TOT']],
                  use_container_width=True, 
                  hide_index=True,
-                 column_config=column_configs)
+                 column_config=column_configs_post)
     
 with compare2:
     selected_score2 = st.selectbox(
@@ -126,11 +138,17 @@ with compare2:
     # Filter the DataFrame based on the selected score
     filtered_df2 = score_cards[(score_cards['player'] == selected_score2)]
     # Display the filtered DataFrame
-    st.dataframe(filtered_df2[['group_number','POS','golfer','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
+    try:
+        st.dataframe(filtered_df2[['group_number','POS','golfer','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
                  use_container_width=True, 
                  hide_index=True,
-                 column_config=column_configs)
-    
+                 column_config=column_configs_active)
+    except:
+        st.dataframe(filtered_df2[['group_number','POS','golfer','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
+                    use_container_width=True, 
+                    hide_index=True,
+                    column_config=column_configs_post)
+        
 # Fun Teams
 
 st.write("## Fun Teams :sunglasses:")
