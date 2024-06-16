@@ -63,8 +63,11 @@ score_cards = pd.merge(team_selections_df,
 top_5_df = score_cards.groupby('player').apply(keep_top_k_scores, include_groups = False)
 
 # Group by 'pool_player_name' again and sum the 'total'
-result = top_5_df.groupby('player')[['SCORE', 'TODAY','TOT']].sum()
-
+try:
+    result = top_5_df.groupby('player')[['SCORE', 'TODAY','TOT']].sum()
+except:
+    result = top_5_df.groupby('player')[['SCORE', 'TOT']].sum()
+    
 # Convert the result to a DataFrame
 result_df = result.reset_index()
 
