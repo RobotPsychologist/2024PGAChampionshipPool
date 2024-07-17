@@ -21,7 +21,7 @@ st.write(f"## {YEAR_LABEL} Pool :golf: ")
 
 
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
-
+st.sidebar.image('images/the_open/scottish_flag_wave.gif', use_column_width=True)
 st.markdown('''
         Royal Troon’s Old Course was founded in 1878, expanded to 18 holes 10 years later and re-designed by five-time Champion Golfer James Braid ahead of its first Open in 1923. It is now gearing up to host The Open for a tenth time.
             ''')
