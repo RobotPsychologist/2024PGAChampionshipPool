@@ -6,7 +6,7 @@ import pandas as pd
 from utils.background_images import set_bg_hack
 
 TOURNAMENT_NAME_LOOKUP = 'the_open'
-TOURNAMENT_NAME_LABEL = 'Open Championship'
+TOURNAMENT_NAME_LABEL = 'The 152nd Open at Royal Troon'
 YEAR_LABEL = '2024'
 
 st.set_page_config(

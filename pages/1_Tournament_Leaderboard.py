@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 TOURNAMENT_NAME_LOOKUP = 'the_open'
-TOURNAMENT_NAME_LABEL = 'Open Championship'
+TOURNAMENT_NAME_LABEL = 'The 152nd Open at Royal Troon'
 YEAR_LABEL = '2024'
 
 st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Live Results :man-golfing:")

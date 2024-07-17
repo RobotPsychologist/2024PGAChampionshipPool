@@ -12,7 +12,7 @@ st.set_page_config(
 
 # GLOBAL CONSTANTS
 TOURNAMENT_NAME_LOOKUP = 'the_open'
-TOURNAMENT_NAME_LABEL = 'Open Championship'
+TOURNAMENT_NAME_LABEL = 'The 152nd Open at Royal Troon'
 YEAR_LABEL = '2024'
 
 LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
