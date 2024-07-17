@@ -29,3 +29,5 @@ st.markdown('''
 
 
 st.image('images/the_open/the_open_at_royal_troon.png', use_column_width=True)  # Image from the royal troon website
+
+st.audio("audio/darkgot__inchadney__bagpipes_in_pitlochery-16919.mp3", format="audio/mp3", loop=True, autoplay=True)
