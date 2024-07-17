@@ -11,8 +11,8 @@ st.set_page_config(
 )
 
 # GLOBAL CONSTANTS
-TOURNAMENT_NAME_LOOKUP = 'us_open'
-TOURNAMENT_NAME_LABEL = 'US Open'
+TOURNAMENT_NAME_LOOKUP = 'the_open'
+TOURNAMENT_NAME_LABEL = 'Open Championship'
 YEAR_LABEL = '2024'
 
 LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'

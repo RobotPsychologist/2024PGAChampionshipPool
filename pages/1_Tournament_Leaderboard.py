@@ -11,8 +11,8 @@ st.set_page_config(
     layout='wide',
 )
 
-TOURNAMENT_NAME_LOOKUP = 'us_open'
-TOURNAMENT_NAME_LABEL = 'US Open'
+TOURNAMENT_NAME_LOOKUP = 'the_open'
+TOURNAMENT_NAME_LABEL = 'Open Championship'
 YEAR_LABEL = '2024'
 
 st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Live Results :man-golfing:")
