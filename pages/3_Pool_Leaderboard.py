@@ -13,12 +13,13 @@ st.set_page_config(
 
 # GLOBAL CONSTANTS
 TOURNAMENT_NAME_LOOKUP = 'the_open'
-TOURNAMENT_NAME_LABEL = 'The 152nd Open at Royal Troon'
+TOURNAMENT_NAME_LABEL = 'THE 152ND OPEN AT ROYAL TROON'
 YEAR_LABEL = '2024'
 LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png' # sidebar image location
 TEAM_SELECTIONS_PATH = f'tables/{TOURNAMENT_NAME_LOOKUP}/pool_picks.csv' # data location
 
-st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Leaderboard :trophy:")
+st.write(f"# {TOURNAMENT_NAME_LABEL}")
+st.write(f"## {YEAR_LABEL} Pool Leaderboard :trophy:")
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
 
 # FUNCTION DEFINITIONS

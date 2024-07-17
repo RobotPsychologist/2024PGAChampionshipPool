@@ -12,11 +12,11 @@ st.set_page_config(
 )
 
 TOURNAMENT_NAME_LOOKUP = 'the_open'
-TOURNAMENT_NAME_LABEL = 'The 152nd Open at Royal Troon'
+TOURNAMENT_NAME_LABEL = 'THE 152ND OPEN AT ROYAL TROON'
 YEAR_LABEL = '2024'
 
-st.write(f"# {YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Pool Live Results :man-golfing:")
-
+st.write(f"# {TOURNAMENT_NAME_LABEL}")
+st.write(f"## {YEAR_LABEL} Pool Live Results :man-golfing: ")
 LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
 

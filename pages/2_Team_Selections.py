@@ -6,7 +6,7 @@ import pandas as pd
 from utils.background_images import set_bg_hack
 
 TOURNAMENT_NAME_LOOKUP = 'the_open'
-TOURNAMENT_NAME_LABEL = 'The 152nd Open at Royal Troon'
+TOURNAMENT_NAME_LABEL = 'THE 152ND OPEN AT ROYAL TROON'
 YEAR_LABEL = '2024'
 
 st.set_page_config(
@@ -25,7 +25,8 @@ web_leaderboard_dfs = pd.read_html(url)
 ## The first table
 web_leaderboard_df = web_leaderboard_dfs[0]
 
-st.write("# Team Selections :abacus:")
+st.write(f"# {TOURNAMENT_NAME_LABEL}")
+st.write(f"## {YEAR_LABEL} Team Selections :abacus:")
 LOGO_IMAGE_PATH = f'images/{TOURNAMENT_NAME_LOOKUP}/TournamentLogo.png'
 st.sidebar.image(LOGO_IMAGE_PATH, use_column_width=True)
 
