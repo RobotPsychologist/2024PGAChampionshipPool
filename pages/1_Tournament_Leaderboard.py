@@ -35,7 +35,7 @@ df = dfs[0]
 try:
     st.dataframe(df[['POS','PLAYER','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],hide_index=True, use_container_width=True, height=800)
 except:
-    st.write('If you see the Error Unicorn the tournament hasn\'t started or there was an error loading the data, please contact Christopher or try again later. Thank you!')
+    st.write('Hold your horses! If you see the Error Unicorn the tournament hasn\'t started or there was an error loading the data, please contact Christopher or try again later. Thank you!')
     st.image('images/the_open/error_corn.gif', use_column_width=True) 
 
     st.dataframe(df)
