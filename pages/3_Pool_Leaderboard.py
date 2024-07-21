@@ -34,11 +34,13 @@ def pull_scores(url='https://www.espn.com/golf/leaderboard'):
 def keep_top_k_scores(df, k=5):
     '''Returns the lowest 5 scores for each group. If a group has less than 5 players remaining, their score is marked as "CUT".'''
     top_k = df.nsmallest(k, 'SCORE')
+    contains_none = top_k['SCORE'].isna().any()
+    print(contains_none)
     # Check if the number of scores is less than k
-    if len(top_k) < k:
+    if contains_none:
         # Mark scores as "CUT" for groups with less than k players
-        df['SCORE'] = 'CUT'
-        return df
+        top_k['SCORE'] = 'CUT'
+        return top_k
     else:
         return top_k
 
@@ -71,37 +73,37 @@ score_cards = pd.merge(team_selections_df,
                        how='left',
                        left_on='golfer',
                        right_on='PLAYER')
+score_cards = score_cards.drop('PLAYER', axis=1)
 
-top_5_df = score_cards.groupby('player').apply(keep_top_k_scores, include_groups = False)
+top_5_df = score_cards.groupby('player').apply(keep_top_k_scores, include_groups = False).reset_index()
 
 # Step 1: Separate Numeric and "CUT" Scores
 numeric_scores = top_5_df[top_5_df['SCORE'].apply(lambda x: isinstance(x, (int, float)))]
 cut_scores = top_5_df[top_5_df['SCORE'] == 'CUT']
-
 # Step 2: Perform GroupBy on Numeric Scores
 # Group by 'pool_player_name' again and sum the 'total'
 try:
-    numeric_result = numeric_scores.groupby('player')[['SCORE', 'TODAY','TOT']].sum()
+    numeric_result = numeric_scores.groupby('player')[['SCORE', 'TODAY','TOT']].sum().reset_index()
 except:
-    numeric_result = numeric_scores.groupby('player')[['SCORE', 'TOT']].sum()
+    numeric_result = numeric_scores.groupby('player')[['SCORE', 'TOT']].sum().reset_index()
 
 # Step 3: Handle "CUT" Scores
 # Assuming you want to keep "CUT" as is, for demonstration. Adjust based on your logic.
 # Here, we just take the unique 'player' from cut_scores and create a DataFrame with "CUT" as SCORE.
 if not cut_scores.empty:
-    cut_result = cut_scores[['player']].drop_duplicates()
+    cut_result = cut_scores['player'].drop_duplicates().to_frame(name='player')
     cut_result['SCORE'] = 'CUT'
-    # Assuming TODAY and TOT are not applicable or set to NaN for "CUT" scores
-    cut_result['TODAY'] = float('nan')
-    cut_result['TOT'] = float('nan')
 
-    # Combine Numeric and "CUT" Results
-    result_df = pd.concat([numeric_result.reset_index(), cut_result]).reset_index(drop=True)
-else:
-    result_df = numeric_result.reset_index()
+# Filter out rows where 'SCORE', 'TODAY', or 'TOT' columns might be blank (assuming these are the relevant columns)
+# Adjust the columns in the condition as necessary for your specific needs
+numeric_result = numeric_result[(numeric_result['player'] != '')]
+
+# Assuming 'player' might be the column with blank values in cut_result
+cut_result = cut_result[cut_result['player'] != '']
+
 
 # Step 4: Display the DataFrame
-st.dataframe(result_df,    
+st.dataframe(numeric_result,    
              column_config={
                 "TOT": st.column_config.NumberColumn(
                     "TOTAL",
@@ -113,9 +115,17 @@ st.dataframe(result_df,
                 "player": st.column_config.TextColumn(
                     "Player", width="medium")
                 },
-             height=900,use_container_width=True, hide_index=True)
+             use_container_width=True, hide_index=True)
 
 st.write('Note: The TODAY column does not include the 3 shot bonus for the tournament leader. The SCORE column does include the 3 shot bonus automatically.')
+
+st.write("## Definite Losers 😢")
+st.dataframe(cut_result,    
+             column_config={
+                "player": st.column_config.TextColumn(
+                    "Player", width="medium")
+                },
+             use_container_width=True, hide_index=True)
 
 
 st.write("## Compare Players :scales:")
@@ -138,7 +148,7 @@ column_configs_post = {"TOT": st.column_config.NumberColumn("TOTAL"),
 with compare1:
     selected_score1 = st.selectbox(
         'Select player:',
-        result_df['player'].unique(),
+        numeric_result['player'].unique(),
         key='score1'   
     )
     # Filter the DataFrame based on the selected score
@@ -158,7 +168,7 @@ with compare1:
 with compare2:
     selected_score2 = st.selectbox(
         'Select player:',
-        result_df['player'].unique(),
+        numeric_result['player'].unique(),
         key='score2'   
     )
     # Filter the DataFrame based on the selected score
