@@ -179,12 +179,13 @@ maximus_configs_post = {"TOT": st.column_config.NumberColumn("TOTAL"),
 
 def team_maximus_puncta(df, group_dict=plyr_grp_counts):
     '''Returns the lowest 5 scores for each group.'''
-    top_team = keep_top_k_scores(df[(df['group_number'] == 1)], k=4) #G1
-    top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 2)], k=2)], axis=0) #G2
-    top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 3)], k=1)], axis=0) #G3
+    top_team = keep_top_k_scores(df[(df['group_number'] == 1)], k=1) #G1
+    top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 2)], k=3)], axis=0) #G2
+    top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 3)], k=2)], axis=0) #G3
     top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 4)], k=1)], axis=0) #G4
     top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 5)], k=1)], axis=0) #G5
     top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 6)], k=1)], axis=0) #G6   
+    top_team = pd.concat([top_team, keep_top_k_scores(df[(df['group_number'] == 7)], k=1)], axis=0) #G7   
     try:
         st.dataframe(top_team[['group_number','POS','golfer','pick_count','SCORE','TODAY','THRU','R1','R2','R3','R4','TOT']],
                         use_container_width=True, 

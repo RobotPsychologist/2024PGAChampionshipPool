@@ -10,7 +10,7 @@ TOURNAMENT_NAME_LABEL = 'THE 152ND OPEN AT ROYAL TROON'
 YEAR_LABEL = '2024'
 
 st.set_page_config(
-    page_title=f"{YEAR_LABEL} {TOURNAMENT_NAME_LABEL} Team Selections",
+    page_title=f"{YEAR_LABEL} - {TOURNAMENT_NAME_LABEL} Team Selections",
     page_icon=":golf:",
     layout='wide',
 )
