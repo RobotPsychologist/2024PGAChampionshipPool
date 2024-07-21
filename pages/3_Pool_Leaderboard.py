@@ -32,8 +32,15 @@ def pull_scores(url='https://www.espn.com/golf/leaderboard'):
     return ldbrd_df
 
 def keep_top_k_scores(df, k=5):
-    '''Returns the lowest 5 scores for each group.'''
-    return df.nsmallest(k, 'SCORE')
+    '''Returns the lowest 5 scores for each group. If a group has less than 5 players remaining, their score is marked as "CUT".'''
+    top_k = df.nsmallest(k, 'SCORE')
+    # Check if the number of scores is less than k
+    if len(top_k) < k:
+        # Mark scores as "CUT" for groups with less than k players
+        df['SCORE'] = 'CUT'
+        return df
+    else:
+        return top_k
 
 def convert_golf_scores(df):
     '''Many data sources come in mixed data formats. This function converts the scores to integers.'''
@@ -64,18 +71,36 @@ score_cards = pd.merge(team_selections_df,
                        how='left',
                        left_on='golfer',
                        right_on='PLAYER')
+
 top_5_df = score_cards.groupby('player').apply(keep_top_k_scores, include_groups = False)
 
+# Step 1: Separate Numeric and "CUT" Scores
+numeric_scores = top_5_df[top_5_df['SCORE'].apply(lambda x: isinstance(x, (int, float)))]
+cut_scores = top_5_df[top_5_df['SCORE'] == 'CUT']
+
+# Step 2: Perform GroupBy on Numeric Scores
 # Group by 'pool_player_name' again and sum the 'total'
 try:
-    result = top_5_df.groupby('player')[['SCORE', 'TODAY','TOT']].sum()
+    numeric_result = numeric_scores.groupby('player')[['SCORE', 'TODAY','TOT']].sum()
 except:
-    result = top_5_df.groupby('player')[['SCORE', 'TOT']].sum()
+    numeric_result = numeric_scores.groupby('player')[['SCORE', 'TOT']].sum()
 
-# Convert the result to a DataFrame
-result_df = result.reset_index()
+# Step 3: Handle "CUT" Scores
+# Assuming you want to keep "CUT" as is, for demonstration. Adjust based on your logic.
+# Here, we just take the unique 'player' from cut_scores and create a DataFrame with "CUT" as SCORE.
+if not cut_scores.empty:
+    cut_result = cut_scores[['player']].drop_duplicates()
+    cut_result['SCORE'] = 'CUT'
+    # Assuming TODAY and TOT are not applicable or set to NaN for "CUT" scores
+    cut_result['TODAY'] = float('nan')
+    cut_result['TOT'] = float('nan')
 
-# Display the DataFrame
+    # Combine Numeric and "CUT" Results
+    result_df = pd.concat([numeric_result.reset_index(), cut_result]).reset_index(drop=True)
+else:
+    result_df = numeric_result.reset_index()
+
+# Step 4: Display the DataFrame
 st.dataframe(result_df,    
              column_config={
                 "TOT": st.column_config.NumberColumn(
